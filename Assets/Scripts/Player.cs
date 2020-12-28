@@ -2,24 +2,42 @@
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float thrustFactor = 1000;
-    [SerializeField] float rollFactor = 75;
-    [SerializeField] float pitchFactor = 125;
-    [SerializeField] float yawFactor = 75;
+    [SerializeField] float thrustFactor = 100;
+    [SerializeField] float rollFactor = 15;
+    [SerializeField] float pitchFactor = 10;
+    [SerializeField] float yawFactor = 10;
+    [SerializeField] float thrustFriction = 0.9f;
+    [SerializeField] float rollFriction = 0.9f;
+    [SerializeField] float pitchFriction = 0.9f;
+    [SerializeField] float yawFriction = 0.9f;
 
-    private Rigidbody body = null;
+    [Header("Debug info")]
+    [SerializeField] float thrust = 0;
+    [SerializeField] float roll = 0;
+    [SerializeField] float pitch = 0;
+    [SerializeField] float yaw = 0;
+    [SerializeField] float thrustRate = 0;
+    [SerializeField] float rollRate = 0;
+    [SerializeField] float pitchRate = 0;
+    [SerializeField] float yawRate = 0;
 
     void Start()
     {
-        body = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        body.AddTorque(transform.forward * -1 * Input.GetAxis("Horizontal") * rollFactor);
-        body.AddTorque(transform.right * Input.GetAxis("Vertical") * pitchFactor);
+        thrust = Input.GetAxis("Thrust");
+        roll = Input.GetAxis("Horizontal");
+        pitch = Input.GetAxis("Vertical");
+        yaw = Input.GetAxis("Yaw");
 
-        body.AddTorque(transform.up * Input.GetAxis("Yaw") * yawFactor);
-        body.AddForce(transform.forward * Input.GetAxis("Thrust") * thrustFactor);
+        rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
+        pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
+        yawRate = (yawRate + (yaw * yawFactor * Time.deltaTime)) * yawFriction;
+
+        transform.Rotate(pitchRate, yawRate, rollRate);
+
+        thrustRate = (thrustRate + (Input.GetAxis("Thrust") * thrustFactor)) * thrustFriction;
     }
 }
