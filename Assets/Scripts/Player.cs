@@ -2,6 +2,7 @@
 
 public class Player : MonoBehaviour
 {
+    [Header("Flight model")]
     [SerializeField] float thrustFactor = 100;
     [SerializeField] float rollFactor = 15;
     [SerializeField] float pitchFactor = 10;
@@ -21,8 +22,13 @@ public class Player : MonoBehaviour
     [SerializeField] float pitchRate = 0;
     [SerializeField] float yawRate = 0;
 
-    void Start()
+    ParticleSystem[] engineFlames;
+
+    void Awake()
     {
+        engineFlames = new ParticleSystem[2];
+        engineFlames[0] = transform.Find("Spaceship_Fighter/Engine-Left/Flame").GetComponent<ParticleSystem>();
+        engineFlames[1] = transform.Find("Spaceship_Fighter/Engine-Right/Flame").GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -38,6 +44,13 @@ public class Player : MonoBehaviour
 
         transform.Rotate(pitchRate, yawRate, rollRate);
 
-        thrustRate = (thrustRate + (Input.GetAxis("Thrust") * thrustFactor)) * thrustFriction;
+        thrustRate = (thrustRate + (Input.GetAxis("Thrust") * thrustFactor * Time.deltaTime)) * thrustFriction;
+
+        transform.Translate(transform.forward * thrustRate);
+
+        foreach(var ps in engineFlames) {
+            var main = ps.main;
+            main.startLifetime = Mathf.Lerp(0, 2, thrust);
+        }
     }
 }
