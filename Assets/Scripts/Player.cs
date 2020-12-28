@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
         engineFlames[1] = transform.Find("Spaceship_Fighter/Engine-Right/Flame").GetComponent<ParticleSystem>();
 
         blasters = new Blaster[2];
-        blasters[0] = transform.Find("Spaceship_Fighter/Fuselage/Blaster-Left/Blaster").GetComponent<Blaster>();
-        blasters[1] = transform.Find("Spaceship_Fighter/Fuselage/Blaster-Right/Blaster").GetComponent<Blaster>();
+        blasters[0] = transform.Find("Spaceship_Fighter/Blaster-Left/Blaster").GetComponent<Blaster>();
+        blasters[1] = transform.Find("Spaceship_Fighter/Blaster-Right/Blaster").GetComponent<Blaster>();
     }
 
     void Update()
