@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    public float velocity = 100f;
+    public float velocity = 150f;
     public float life = 5.0f;
 
     // Private variables - should not need any changing, for internal use

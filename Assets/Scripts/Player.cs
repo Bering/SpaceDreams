@@ -38,10 +38,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        thrust = Input.GetAxis("Thrust");
-        roll = Input.GetAxis("Horizontal");
-        pitch = Input.GetAxis("Vertical");
+        roll = Input.GetAxis("Roll");
+        pitch = Input.GetAxis("Pitch");
         yaw = Input.GetAxis("Yaw");
+        thrust = Input.GetAxis("Thrust");
 
         rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
         pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
         transform.Rotate(pitchRate, yawRate, rollRate);
 
-        thrustRate = (thrustRate + (Input.GetAxis("Thrust") * thrustFactor * Time.deltaTime)) * thrustFriction;
+        thrustRate = (thrustRate + (thrust * thrustFactor * Time.deltaTime)) * thrustFriction;
 
         transform.position += transform.forward * thrustRate;
 
