@@ -1,27 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     [Header("Flight model")]
+    [SerializeField] float yawFactor = 10;
     [SerializeField] float thrustFactor = 10;
     [SerializeField] float rollFactor = 15;
     [SerializeField] float pitchFactor = 10;
-    [SerializeField] float yawFactor = 10;
+    [SerializeField] float yawFriction = 0.9f;
     [SerializeField] float thrustFriction = 0.9f;
     [SerializeField] float rollFriction = 0.9f;
     [SerializeField] float pitchFriction = 0.9f;
-    [SerializeField] float yawFriction = 0.9f;
 
     [Header("Debug info")]
+    [SerializeField] float yaw = 0;
     [SerializeField] float thrust = 0;
     [SerializeField] float roll = 0;
     [SerializeField] float pitch = 0;
-    [SerializeField] float yaw = 0;
+    [SerializeField] bool leftTrigger = false;
+    [SerializeField] bool rightTrigger = false;
+    [SerializeField] float yawRate = 0;
     [SerializeField] float thrustRate = 0;
     [SerializeField] float rollRate = 0;
     [SerializeField] float pitchRate = 0;
-    [SerializeField] float yawRate = 0;
 
+    Gamepad gamepad;
     Engine[] engines;
     Blaster[] blasters;
 
@@ -38,10 +42,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        roll = Input.GetAxis("Roll");
-        pitch = Input.GetAxis("Pitch");
-        yaw = Input.GetAxis("Yaw");
-        thrust = Input.GetAxis("Thrust");
+        gamepad = Gamepad.current;
+        if (gamepad == null) return;
+
+        yaw = gamepad.leftStick.x.ReadValue();
+        thrust = gamepad.leftStick.y.ReadValue();
+        roll = gamepad.rightStick.x.ReadValue();
+        pitch = gamepad.rightStick.y.ReadValue();
+        leftTrigger = gamepad.leftTrigger.isPressed;
+        rightTrigger = gamepad.rightTrigger.isPressed;
 
         rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
         pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
@@ -57,7 +66,7 @@ public class Player : MonoBehaviour
             engine.SetThrust(thrust);
         }
 
-        if (Input.GetButton("Fire1")) {
+        if (rightTrigger) {
             Fire();
         }
     }
