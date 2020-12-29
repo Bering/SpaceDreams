@@ -2,7 +2,7 @@
 
 public class Blaster : MonoBehaviour
 {
-    [SerializeField] BL_Bullet _bulletPrefab = null;
+    [SerializeField] Bullet _bulletPrefab = null;
     [SerializeField] float _reloadTime = 0.5f;
     
     AudioSource _audio;
