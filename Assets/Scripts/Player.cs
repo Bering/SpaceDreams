@@ -22,14 +22,14 @@ public class Player : MonoBehaviour
     [SerializeField] float pitchRate = 0;
     [SerializeField] float yawRate = 0;
 
-    ParticleSystem[] engineFlames;
+    Engine[] engines;
     Blaster[] blasters;
 
     void Awake()
     {
-        engineFlames = new ParticleSystem[2];
-        engineFlames[0] = transform.Find("Spaceship_Fighter/Engine-Left/Flame").GetComponent<ParticleSystem>();
-        engineFlames[1] = transform.Find("Spaceship_Fighter/Engine-Right/Flame").GetComponent<ParticleSystem>();
+        engines = new Engine[2];
+        engines[0] = transform.Find("Spaceship_Fighter/Engine-Left/Flame").GetComponent<Engine>();
+        engines[1] = transform.Find("Spaceship_Fighter/Engine-Right/Flame").GetComponent<Engine>();
 
         blasters = new Blaster[2];
         blasters[0] = transform.Find("Spaceship_Fighter/Blaster-Left/Blaster").GetComponent<Blaster>();
@@ -53,9 +53,8 @@ public class Player : MonoBehaviour
 
         transform.position += transform.forward * thrustRate;
 
-        foreach(var ps in engineFlames) {
-            var main = ps.main;
-            main.startLifetime = Mathf.Lerp(0, 1, thrust);
+        foreach(var engine in engines) {
+            engine.SetThrust(thrust);
         }
 
         if (Input.GetButton("Fire1")) {
