@@ -268,8 +268,8 @@ MonoBehaviour:
   autoStartServerBuild: 1
   showDebugMessages: 0
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/Menu.unity
+  onlineScene: Assets/Scenes/Game.unity
   transport: {fileID: 734988976}
   networkAddress: ringlogic.redirectme.net
   maxConnections: 4
