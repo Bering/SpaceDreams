@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [Header("Flight model")]
     [SerializeField] float yawFactor = 10;
@@ -42,15 +43,25 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        gamepad = Gamepad.current;
-        if (gamepad == null) return;
+        if (!hasAuthority) return;
 
-        yaw = gamepad.leftStick.x.ReadValue();
-        thrust = gamepad.leftStick.y.ReadValue();
-        roll = gamepad.rightStick.x.ReadValue();
-        pitch = gamepad.rightStick.y.ReadValue();
-        leftTrigger = gamepad.leftTrigger.isPressed;
-        rightTrigger = gamepad.rightTrigger.isPressed;
+        gamepad = Gamepad.current;
+        if (gamepad != null) {
+            yaw = gamepad.leftStick.x.ReadValue();
+            thrust = gamepad.leftStick.y.ReadValue();
+            roll = gamepad.rightStick.x.ReadValue();
+            pitch = gamepad.rightStick.y.ReadValue();
+            leftTrigger = gamepad.leftTrigger.isPressed;
+            rightTrigger = gamepad.rightTrigger.isPressed;
+        }
+        else {
+            yaw = 0f;
+            thrust = 0f;
+            roll = 0f;
+            pitch = 0f;
+            leftTrigger = false;
+            rightTrigger = false;
+        }
 
         rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
         pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
@@ -62,16 +73,18 @@ public class Player : MonoBehaviour
 
         transform.position += transform.forward * thrustRate;
 
+        // TODO: SetThrust is for the particles and sounds. It should be called on all clients. Do I have to syncvar thrust?
         foreach(var engine in engines) {
             engine.SetThrust(thrust);
         }
 
         if (rightTrigger) {
-            Fire();
+            CmdFire();
         }
     }
 
-    void Fire()
+    [Command]
+    void CmdFire()
     {
         foreach(var blaster in blasters) {
             blaster.Fire();

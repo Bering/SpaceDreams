@@ -16,7 +16,7 @@ public class BuildScript
 
         Debug.Log("Building Linux Server...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Debug.Log("Done!");
+        Debug.Log("Linux Server Done!");
     }
 
     [MenuItem("Build/Build Linux Client")]
@@ -30,7 +30,7 @@ public class BuildScript
 
         Debug.Log("Building Linux Client...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Debug.Log("Done!");
+        Debug.Log("Linux Client Done!");
     }
 
     [MenuItem("Build/Build Windows Client")]
@@ -44,7 +44,7 @@ public class BuildScript
 
         Debug.Log("Building Windows Client...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Debug.Log("Done!");
+        Debug.Log("Windows Client Done!");
     }
 
     [MenuItem("Build/Build All")]
