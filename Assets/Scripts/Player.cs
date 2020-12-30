@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
 
@@ -79,12 +79,11 @@ public class Player : NetworkBehaviour
         }
 
         if (rightTrigger) {
-            CmdFire();
+            Fire();
         }
     }
 
-    [Command]
-    void CmdFire()
+    void Fire()
     {
         foreach(var blaster in blasters) {
             blaster.Fire();
