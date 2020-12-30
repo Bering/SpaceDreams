@@ -73,7 +73,6 @@ public class Player : NetworkBehaviour
 
         transform.position += transform.forward * thrustRate;
 
-        // TODO: SetThrust is for the particles and sounds. It should be called on all clients. Do I have to syncvar thrust?
         foreach(var engine in engines) {
             engine.SetThrust(thrust);
         }

@@ -23,12 +23,18 @@ public class Blaster : NetworkBehaviour
         Bullet b = Instantiate(_bulletPrefab, transform.position, transform.rotation);
         NetworkServer.Spawn(b.gameObject);
 
-        _audio.Play();
+        RpcPlayAudio();
     }
 
     bool CanFire()
     {
         return Time.time >= _nextFireTime;
+    }
+
+    [ClientRpc]
+    void RpcPlayAudio()
+    {
+        _audio.Play();
     }
 
 }

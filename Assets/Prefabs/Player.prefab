@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802ea156178672463b6988186f7dbd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _bulletPrefab: {fileID: 5154855760142198065, guid: 8f5d931923e1a438eafe45368079ca9b,
     type: 3}
   _reloadTime: 0.33
@@ -5120,6 +5122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802ea156178672463b6988186f7dbd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   _bulletPrefab: {fileID: 5154855760142198065, guid: 8f5d931923e1a438eafe45368079ca9b,
     type: 3}
   _reloadTime: 0.33
@@ -10147,7 +10151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 1
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
