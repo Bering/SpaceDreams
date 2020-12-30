@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pid=`ssh father pgrep SpaceDreams.Server`
+pid=`ssh father pgrep SpaceDreams`
 ssh father kill $pid
 
 ssh father rm -rf ~/SpaceDreams
