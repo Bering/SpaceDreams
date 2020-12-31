@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using Mirror;
 
-public class Engine : NetworkBehaviour
+public class Engine : MonoBehaviour
 {
     ParticleSystem _flame;
     AudioSource _audio;
@@ -12,7 +11,6 @@ public class Engine : NetworkBehaviour
         _audio = GetComponent<AudioSource>();
     }
 
-    [ClientRpc]
     public void SetThrust(float thrust)
     {
         var main = _flame.main;
