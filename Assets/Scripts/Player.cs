@@ -14,6 +14,14 @@ public class Player : NetworkBehaviour
     [SerializeField] float rollFriction = 0.9f;
     [SerializeField] float pitchFriction = 0.9f;
 
+    [Header("Input Actions")]
+    [SerializeField] InputAction yawAction = null;
+    [SerializeField] InputAction thrustAction = null;
+    [SerializeField] InputAction rollAction = null;
+    [SerializeField] InputAction pitchAction = null;
+    [SerializeField] InputAction blastersAction = null;
+    [SerializeField] InputAction missileAction = null;
+
     [Header("Debug info")]
     [SerializeField] float yaw = 0;
     [SerializeField] float thrust = 0;
@@ -26,7 +34,6 @@ public class Player : NetworkBehaviour
     [SerializeField] float rollRate = 0;
     [SerializeField] float pitchRate = 0;
 
-    Gamepad gamepad;
     Engine[] engines;
     Blaster[] blasters;
 
@@ -41,27 +48,26 @@ public class Player : NetworkBehaviour
         blasters[1] = transform.Find("Spaceship_Fighter/Blaster-Right/Blaster").GetComponent<Blaster>();
     }
 
+    void OnEnable()
+    {
+        yawAction.Enable();
+        thrustAction.Enable();
+        rollAction.Enable();
+        pitchAction.Enable();
+        missileAction.Enable();
+        blastersAction.Enable();
+    }
+
     void Update()
     {
         if (!hasAuthority) return;
 
-        gamepad = Gamepad.current;
-        if (gamepad != null) {
-            yaw = gamepad.leftStick.x.ReadValue();
-            thrust = gamepad.leftStick.y.ReadValue();
-            roll = gamepad.rightStick.x.ReadValue();
-            pitch = gamepad.rightStick.y.ReadValue();
-            leftTrigger = gamepad.leftTrigger.isPressed;
-            rightTrigger = gamepad.rightTrigger.isPressed;
-        }
-        else {
-            yaw = 0f;
-            thrust = 0f;
-            roll = 0f;
-            pitch = 0f;
-            leftTrigger = false;
-            rightTrigger = false;
-        }
+        yaw = yawAction.ReadValue<float>();
+        thrust = thrustAction.ReadValue<float>();
+        roll = rollAction.ReadValue<float>();
+        pitch = pitchAction.ReadValue<float>();
+        leftTrigger = (missileAction.ReadValue<float>() > 0.2f);
+        rightTrigger = (blastersAction.ReadValue<float>() > 0.2f);
 
         rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
         pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
