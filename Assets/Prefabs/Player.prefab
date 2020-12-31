@@ -10177,6 +10177,278 @@ MonoBehaviour:
   thrustFriction: 0.9
   rollFriction: 0.9
   pitchFriction: 0.9
+  yawAction:
+    m_Name: Yaw
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: eff3f18c-5502-4530-898e-49ae196fbd29
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Gamepad
+      m_Id: cc57c3b9-a095-4be9-8202-c559bb0fb0d6
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 1795fc51-3064-40f0-ad7f-25cdd0aa8897
+      m_Path: <Gamepad>/leftStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 94b4d47c-a2fa-4c5a-a0bc-5a3e56573f49
+      m_Path: <Gamepad>/leftStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: Keyboard
+      m_Id: 1adfdabd-d581-43b8-bd0b-82eb64ab69be
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: aed26516-67cd-42d3-b964-da03a8ce67a3
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 25619ff7-8632-4f6b-960c-26e50dc17a73
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+  thrustAction:
+    m_Name: Thrust
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 74cdb36f-3b15-4dd3-8c60-a019e83a9d41
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Gamepad
+      m_Id: a3e4c26b-acb2-414c-a7c7-0ba1e99519cf
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 0a94219d-29fb-439b-b959-d88c18ec8050
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 2f3480bf-d66e-42e8-81bb-62003fb2e3c4
+      m_Path: <Gamepad>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 8
+    - m_Name: Keyboard
+      m_Id: c53359b1-6604-47b2-9369-fec7486714c4
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 048ba8d3-cbef-4d57-a044-d3b274c34fc2
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: a3a7afc1-ed44-44bb-9356-b16fcab20127
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Thrust
+      m_Flags: 8
+  rollAction:
+    m_Name: Roll
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8f826831-c94b-4e67-b251-68c81796bec2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Gamepad
+      m_Id: d1944327-91fb-457a-be17-1c10c659f96e
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 8933f8f2-c888-40a5-8a15-cf89df6ce313
+      m_Path: <Gamepad>/rightStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 276e7b58-f4c7-4506-9dfb-d224d7088dbc
+      m_Path: <Gamepad>/rightStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 8
+    - m_Name: Keyboard
+      m_Id: ccc9f1fb-2816-42b0-9e05-b7eaee692a35
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 793d52e7-eac2-4dfb-b240-8dcae9395005
+      m_Path: <Keyboard>/j
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: acb88fbd-8e2d-472c-a9e1-0f66e4756b5d
+      m_Path: <Keyboard>/l
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Roll
+      m_Flags: 8
+  pitchAction:
+    m_Name: Pitch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6c81d828-3472-476f-bee9-3bfebe23f6e8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: Gamepad
+      m_Id: 7df40d8a-ffd9-4916-8100-d32d7398d128
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: c8818e5d-be55-4ea2-8474-08c9ec657245
+      m_Path: <Gamepad>/rightStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: fd68c663-d1e0-477b-aa68-b695c6a67bae
+      m_Path: <Gamepad>/rightStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
+    - m_Name: Keyboard
+      m_Id: 9bdf5d44-d07a-4648-ba8a-fd17b130dcd1
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 0c463951-9e46-44bd-8719-87fc2bfb5c91
+      m_Path: <Keyboard>/k
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: eb3ce6ef-2b72-46d7-8406-33459c10d769
+      m_Path: <Keyboard>/i
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pitch
+      m_Flags: 8
+  blastersAction:
+    m_Name: Blasters
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 21751441-5dd5-4954-a9b0-6bc177901845
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 441b7982-b800-4f50-b769-d0adcd0c4412
+      m_Path: <Gamepad>/rightTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Blasters
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 5371507c-e652-4254-930f-bacc823664fe
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Blasters
+      m_Flags: 0
+  missileAction:
+    m_Name: Missile
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e4c3be3e-65df-4869-845d-fe1b371ebc34
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: eac6c486-c3a1-4ab0-a2a3-f2a1eeaf5770
+      m_Path: <Gamepad>/leftTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Missile
+      m_Flags: 0
+    - m_Name: 
+      m_Id: ba600d6b-6a61-42a9-a541-114af8d80ec8
+      m_Path: <Keyboard>/ctrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Missile
+      m_Flags: 0
   yaw: 0
   thrust: 0
   roll: 0
