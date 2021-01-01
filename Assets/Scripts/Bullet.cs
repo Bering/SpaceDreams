@@ -119,6 +119,4 @@ public class Bullet : MonoBehaviour {
         }
     }
 
-
-
 }

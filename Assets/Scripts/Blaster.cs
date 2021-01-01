@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Mirror;
 
-public class Blaster : MonoBehaviour
+public class Blaster : NetworkBehaviour
 {
     [SerializeField] Bullet _bulletPrefab = null;
     [SerializeField] float _reloadTime = 0.5f;
@@ -19,7 +20,8 @@ public class Blaster : MonoBehaviour
 
         _nextFireTime = Time.time + _reloadTime;
 
-        Instantiate(_bulletPrefab, transform.position, transform.rotation);
+        Bullet b = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(b.gameObject);
 
         _audio.Play();
     }

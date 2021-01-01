@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [Header("Flight model")]
     [SerializeField] float yawFactor = 10;
@@ -12,6 +13,14 @@ public class Player : MonoBehaviour
     [SerializeField] float thrustFriction = 0.9f;
     [SerializeField] float rollFriction = 0.9f;
     [SerializeField] float pitchFriction = 0.9f;
+
+    [Header("Input Actions")]
+    [SerializeField] InputAction yawAction = null;
+    [SerializeField] InputAction thrustAction = null;
+    [SerializeField] InputAction rollAction = null;
+    [SerializeField] InputAction pitchAction = null;
+    [SerializeField] InputAction blastersAction = null;
+    [SerializeField] InputAction missileAction = null;
 
     [Header("Debug info")]
     [SerializeField] float yaw = 0;
@@ -25,7 +34,6 @@ public class Player : MonoBehaviour
     [SerializeField] float rollRate = 0;
     [SerializeField] float pitchRate = 0;
 
-    Gamepad gamepad;
     Engine[] engines;
     Blaster[] blasters;
 
@@ -40,17 +48,31 @@ public class Player : MonoBehaviour
         blasters[1] = transform.Find("Spaceship_Fighter/Blaster-Right/Blaster").GetComponent<Blaster>();
     }
 
+    void OnEnable()
+    {
+        yawAction.Enable();
+        thrustAction.Enable();
+        rollAction.Enable();
+        pitchAction.Enable();
+        missileAction.Enable();
+        blastersAction.Enable();
+    }
+
+    public override void OnStartAuthority()
+    {
+        transform.Find("Camera").gameObject.SetActive(true);
+    }
+
     void Update()
     {
-        gamepad = Gamepad.current;
-        if (gamepad == null) return;
+        if (!hasAuthority) return;
 
-        yaw = gamepad.leftStick.x.ReadValue();
-        thrust = gamepad.leftStick.y.ReadValue();
-        roll = gamepad.rightStick.x.ReadValue();
-        pitch = gamepad.rightStick.y.ReadValue();
-        leftTrigger = gamepad.leftTrigger.isPressed;
-        rightTrigger = gamepad.rightTrigger.isPressed;
+        yaw = yawAction.ReadValue<float>();
+        thrust = thrustAction.ReadValue<float>();
+        roll = rollAction.ReadValue<float>();
+        pitch = pitchAction.ReadValue<float>();
+        leftTrigger = (missileAction.ReadValue<float>() > 0.2f);
+        rightTrigger = (blastersAction.ReadValue<float>() > 0.2f);
 
         rollRate = (rollRate + (-1 * roll * rollFactor * Time.deltaTime)) * rollFriction;
         pitchRate = (pitchRate + (pitch * pitchFactor * Time.deltaTime)) * pitchFriction;
@@ -62,19 +84,57 @@ public class Player : MonoBehaviour
 
         transform.position += transform.forward * thrustRate;
 
-        foreach(var engine in engines) {
-            engine.SetThrust(thrust);
-        }
+        CmdSetThrust(thrust);
 
         if (rightTrigger) {
-            Fire();
+            CmdFire();
         }
     }
 
-    void Fire()
+    [Command]
+    void CmdSetThrust(float thrust)
+    {
+        RpcSetThrust(thrust);
+    }
+
+    [ClientRpc]
+    void RpcSetThrust(float thrust)
+    {
+        foreach(var engine in engines) {
+            engine.SetThrust(thrust);
+        }
+    }
+
+    [Command]
+    void CmdFire()
+    {
+        RpcFire();
+    }
+
+    [ClientRpc]
+    void RpcFire()
     {
         foreach(var blaster in blasters) {
             blaster.Fire();
         }
+    }
+
+    void OnGUI()
+    {
+        string s;
+
+        GUI.BeginGroup(new Rect(Screen.width - 160, 0, 160, 140));
+            GUI.Box(new Rect(0, 0, 160, 140), "");
+
+            GUI.Label(new Rect(10, 10, 140, 20), "Yaw: " + yaw.ToString());
+            GUI.Label(new Rect(10, 30, 140, 20), "Thrust: " + thrust.ToString());
+            GUI.Label(new Rect(10, 50, 140, 20), "Roll: " + roll.ToString());
+            GUI.Label(new Rect(10, 70, 140, 20), "Pitch: " + pitch.ToString());
+
+            s = leftTrigger ? "pulled" : "released";
+            GUI.Label(new Rect(10, 90, 140, 20), "Left Trigger: " + s);
+            s = rightTrigger ? "pulled" : "released";
+            GUI.Label(new Rect(10, 110, 140, 20), "Right Trigger: " + s);
+        GUI.EndGroup();
     }
 }
