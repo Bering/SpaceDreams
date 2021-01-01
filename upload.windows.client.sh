@@ -5,12 +5,12 @@ cd Builds/Windows
 echo "#############"
 echo "# Archiving #"
 echo "#############"
-7z a SpaceDreams.windows.7z SpaceDreams
+zip -r SpaceDreams.windows.zip SpaceDreams
 
 echo
 echo "#############"
 echo "# Uploading #"
 echo "#############"
-scp SpaceDreams.windows.7z bering@ringlogic.com:public_html/unity
+scp SpaceDreams.windows.zip bering@ringlogic.com:public_html/unity
 
 cd -
