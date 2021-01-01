@@ -36,6 +36,7 @@ public class Player : NetworkBehaviour
 
     Engine[] engines;
     Blaster[] blasters;
+    AudioSource impactSound;
 
     void Awake()
     {
@@ -46,6 +47,8 @@ public class Player : NetworkBehaviour
         blasters = new Blaster[2];
         blasters[0] = transform.Find("Spaceship_Fighter/Blaster-Left/Blaster").GetComponent<Blaster>();
         blasters[1] = transform.Find("Spaceship_Fighter/Blaster-Right/Blaster").GetComponent<Blaster>();
+
+        impactSound = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -136,5 +139,24 @@ public class Player : NetworkBehaviour
             s = rightTrigger ? "pulled" : "released";
             GUI.Label(new Rect(10, 110, 140, 20), "Right Trigger: " + s);
         GUI.EndGroup();
+    }
+
+    public void Hit()
+    {
+        if (!hasAuthority) return;
+
+        CmdHit();
+    }
+
+    [Command]
+    void CmdHit()
+    {
+        RpcHit();
+    }
+
+    [ClientRpc]
+    void RpcHit()
+    {
+        impactSound.Play();
     }
 }

@@ -1,17 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Freighter : MonoBehaviour
 {
     [SerializeField] float speed = 1;
 
-    Vector3 movement;
+    Vector3 _movement;
+    AudioSource _audio;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
-        movement = transform.forward * speed * Time.deltaTime;
-        transform.Translate(movement);
+        _movement = transform.forward * speed * Time.deltaTime;
+        transform.Translate(_movement);
+    }
+
+    public void Hit()
+    {
+        _audio.Play();
     }
 }
