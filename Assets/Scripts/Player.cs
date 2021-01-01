@@ -58,6 +58,11 @@ public class Player : NetworkBehaviour
         blastersAction.Enable();
     }
 
+    public override void OnStartAuthority()
+    {
+        transform.Find("Camera").gameObject.SetActive(true);
+    }
+
     void Update()
     {
         if (!hasAuthority) return;
@@ -79,16 +84,35 @@ public class Player : NetworkBehaviour
 
         transform.position += transform.forward * thrustRate;
 
-        foreach(var engine in engines) {
-            engine.SetThrust(thrust);
-        }
+        CmdSetThrust(thrust);
 
         if (rightTrigger) {
-            Fire();
+            CmdFire();
         }
     }
 
-    void Fire()
+    [Command]
+    void CmdSetThrust(float thrust)
+    {
+        RpcSetThrust(thrust);
+    }
+
+    [ClientRpc]
+    void RpcSetThrust(float thrust)
+    {
+        foreach(var engine in engines) {
+            engine.SetThrust(thrust);
+        }
+    }
+
+    [Command]
+    void CmdFire()
+    {
+        RpcFire();
+    }
+
+    [ClientRpc]
+    void RpcFire()
     {
         foreach(var blaster in blasters) {
             blaster.Fire();
